@@ -35,7 +35,7 @@ function draw() {
   // image(capture, -capture.width, 0); // draw webcam
   image(
     capture,
-    multiplier.shiftX - multiplier.width,
+    -multiplier.shiftX - multiplier.width,
     multiplier.shiftY,
     multiplier.width,
     multiplier.height
