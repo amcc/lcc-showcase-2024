@@ -16,8 +16,8 @@ const numPoses = 5;
 let currentPersons = 1;
 
 let multiplier = {
-  x: 0,
-  y: 0,
+  width: 0,
+  height: 0,
   z: 40,
   shiftX: 0,
   shiftY: 0,
@@ -63,8 +63,8 @@ function draw() {
         const x = lerpLandmarks[personIndex][partIndex].x;
         const y = lerpLandmarks[personIndex][partIndex].y;
         const z = lerpLandmarks[personIndex][partIndex].z;
-        const mx = part.x * multiplier.x + multiplier.shiftX;
-        const my = part.y * multiplier.y + multiplier.shiftY;
+        const mx = part.x * multiplier.width + multiplier.shiftX;
+        const my = part.y * multiplier.height + multiplier.shiftY;
         const mz = (part.z * capture.height) / 10;
         // console.log(part);
 
@@ -86,8 +86,8 @@ function drawCapture() {
     capture,
     multiplier.shiftX,
     multiplier.shiftY,
-    multiplier.x,
-    multiplier.y
+    multiplier.width,
+    multiplier.height
   );
 }
 
@@ -106,12 +106,12 @@ function lerpPositions() {
       // get the lerped position for detected body parts
       l[partIndex].x = lerp(
         l[partIndex].x,
-        part.x * multiplier.x + multiplier.shiftX,
+        part.x * multiplier.width + multiplier.shiftX,
         lerpRate
       );
       l[partIndex].y = lerp(
         l[partIndex].y,
-        part.y * multiplier.y + multiplier.shiftY,
+        part.y * multiplier.height + multiplier.shiftY,
         lerpRate
       );
       l[partIndex].z = lerp(l[partIndex].z, part.z * multiplier.z, lerpRate);
@@ -167,19 +167,19 @@ function setCameraDimensions() {
   let screenRatio = width / height;
 
   if (captureRatio > screenRatio) {
-    multiplier.x = width;
-    multiplier.y = (width / capture.width) * capture.height;
+    multiplier.width = height * captureRatio;
+    multiplier.height = height;
   } else {
-    multiplier.x = (height / capture.height) * capture.width;
-    multiplier.y = height;
+    multiplier.width = width * captureRatio;
+    multiplier.height = width;
   }
 
-  multiplier.shiftX = (width - multiplier.x) / 2;
-  multiplier.shiftY = (height - multiplier.y) / 2;
+  multiplier.shiftX = (width - multiplier.width) / 2;
+  multiplier.shiftY = (height - multiplier.height) / 2;
 
   // if (width / height) {
-  //   multiplier.x = width;
-  //   multiplier.y = (width / capture.width) * capture.height;
+  //   multiplier.width = width;
+  //   multiplier.height = (width / capture.width) * capture.height;
   // } else {
   // }
 }

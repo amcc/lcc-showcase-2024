@@ -126,11 +126,11 @@ function setCameraDimensions() {
   let screenRatio = width / height;
 
   if (captureRatio > screenRatio) {
-    multiplier.width = width;
-    multiplier.height = (width / capture.width) * capture.height;
-  } else {
-    multiplier.width = (height / capture.height) * capture.width;
+    multiplier.width = height * captureRatio;
     multiplier.height = height;
+  } else {
+    multiplier.width = width * captureRatio;
+    multiplier.height = width;
   }
 
   multiplier.shiftX = (width - multiplier.width) / 2;
