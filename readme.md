@@ -3,6 +3,10 @@
 # final
 
 - [pose circles](pose-circles)
+- [pose grid](pose-grid)
+- [pose grid separate](pose-grid-separate)
+- [pose rectangles](pose-rectangles)
+- [pose colour](pose-colour)
 
 ## here's some starter templates
 

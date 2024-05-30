@@ -55,7 +55,7 @@ function draw() {
     multiplier.width,
     multiplier.height
   );
-  console.log(multiplier.width, multiplier.height);
+
   scale(-1, 1); // unset mirror
   pop();
 
@@ -151,11 +151,9 @@ function captureWebcam() {
       // do things when video ready
       // until then, the video element will have no dimensions, or default 640x480
 
-      console.log(capture.width, capture.height);
-
       setCameraDimensions();
 
-      mediaPipe.createPoseLandmarker({ numPoses: 3 });
+      mediaPipe.createPoseLandmarker({ numPoses: 5 });
       mediaPipe.predictWebcam(capture);
     }
   );
