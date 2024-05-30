@@ -38,6 +38,7 @@ for (let i = 0; i < numPoses; i++) {
 function setup() {
   createCanvas(windowWidth, windowHeight);
   captureWebcam();
+  console.log(width, height);
 }
 
 function draw() {
