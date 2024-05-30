@@ -9,5 +9,5 @@
 
 ## here's some ideas for big circles
 
-- [big circle with webcam](big-circle)
-- [big circle without webcam](big-circle-webcam)
+- [big circle with webcam](big-circle-webcam)
+- [big circle without webcam](big-circle)
