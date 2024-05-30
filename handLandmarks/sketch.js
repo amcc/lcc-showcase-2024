@@ -11,6 +11,14 @@
 let capture;
 let captureEvent;
 
+let multiplier = {
+  width: 0,
+  height: 0,
+  z: 40,
+  shiftX: 0,
+  shiftY: 0,
+};
+
 function setup() {
   createCanvas(windowWidth, windowHeight);
   captureWebcam();
@@ -19,46 +27,53 @@ function setup() {
 function draw() {
   background(255);
 
+  fill(0);
+
   // flip the webcam image so it looks like a mirror
   push();
   scale(-1, 1); // mirror webcam
-  image(capture, -capture.width, 0); // draw webcam
+  // image(capture, -capture.width, 0); // draw webcam
+  image(
+    capture,
+    -multiplier.shiftX - multiplier.width,
+    multiplier.shiftY,
+    multiplier.width,
+    multiplier.height
+  );
+  console.log(multiplier.width, multiplier.height);
   scale(-1, 1); // unset mirror
   pop();
 
-  // landmarks contain an array of hands
-  if (mediaPipe.landmarks.length > 0) {
-    mediaPipe.landmarks.forEach((hand, index) => {
-      // each hand contains an array of finger/knuckle positions
+  mediaPipe.landmarks.forEach((hand, index) => {
+    // each hand contains an array of finger/knuckle positions
 
-      // handedness stores if the hands are right/left
-      let handedness = mediaPipe.handednesses[index][0].displayName;
+    // handedness stores if the hands are right/left
+    let handedness = mediaPipe.handednesses[index][0].displayName;
 
-      // if using a front camera hands are the wrong way round so we flip them
-      handedness === "Right" ? (handedness = "Left") : (handedness = "Right");
+    // if using a front camera hands are the wrong way round so we flip them
+    handedness === "Right" ? (handedness = "Left") : (handedness = "Right");
 
-      // lets colour each hand depeding on whether its the first or second hand
-      handedness === "Right" ? fill(255, 0, 0) : fill(0, 255, 0);
+    // lets colour each hand depeding on whether its the first or second hand
+    handedness === "Right" ? fill(255, 0, 0) : fill(0, 255, 0);
 
-      hand.forEach((part, index) => {
-        // each part is a knuckle or section of the hand
-        // we have x, y and z positions so we could also do this in 3D (WEBGL)
-        if (index === 8) {
-          textSize(30);
-          text(handedness, ...getFlipPos(part, 20));
-        }
-        circle(...getFlipPos(part), part.z * 100);
-      });
+    hand.forEach((part, index) => {
+      // each part is a knuckle or section of the hand
+      // we have x, y and z positions so we could also do this in 3D (WEBGL)
+      if (index === 8) {
+        textSize(30);
+        text(handedness, getFlipPos(part, 20).x, getFlipPos(part, 20).y);
+      }
+      circle(getFlipPos(part).x, getFlipPos(part).y, part.z * 100);
     });
-  }
+  });
 }
 
 // return flipped x and y positions
-function getFlipPos(part, xAdd = 0, yAdd = 0) {
-  return [
-    capture.width - part.x * capture.width + xAdd,
-    part.y * capture.height + yAdd,
-  ];
+function getFlipPos(part) {
+  return {
+    x: multiplier.width - part.x * multiplier.width + multiplier.shiftX,
+    y: part.y * multiplier.height + multiplier.shiftY,
+  };
 }
 
 // this function helps to captuer the webcam in a way that ensure video is loaded
@@ -75,7 +90,6 @@ function captureWebcam() {
     },
     function (e) {
       captureEvent = e;
-      console.log(captureEvent.getTracks()[0].getSettings());
       // do things when video ready
       // until then, the video element will have no dimensions, or default 640x480
       capture.srcObject = e;
@@ -95,11 +109,25 @@ function setCameraDimensions() {
   // resize the capture depending on whether
   // the camera is landscape or portrait
 
-  if (capture.width > capture.height) {
-    capture.size(width, (capture.height / capture.width) * width);
+  // if (capture.width > capture.height) {
+  //   capture.size(width, (capture.height / capture.width) * width);
+  // } else {
+  //   capture.size((capture.width / capture.height) * height, height);
+  // }
+
+  let captureRatio = capture.width / capture.height;
+  let screenRatio = width / height;
+
+  if (captureRatio > screenRatio) {
+    multiplier.width = height * captureRatio;
+    multiplier.height = height;
   } else {
-    capture.size((capture.width / capture.height) * height, height);
+    multiplier.width = width * captureRatio;
+    multiplier.height = width;
   }
+
+  multiplier.shiftX = (width - multiplier.width) / 2;
+  multiplier.shiftY = (height - multiplier.height) / 2;
 }
 
 // resize the canvas when the window is resized
