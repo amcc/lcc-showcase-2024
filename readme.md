@@ -1,5 +1,9 @@
 # LCC Showcase 2024
 
+# final
+
+- [pose circles](pose-circles)
+
 ## here's some starter templates
 
 - [hand landmarks](handLandmarks)
