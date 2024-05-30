@@ -55,6 +55,7 @@ function draw() {
     multiplier.width,
     multiplier.height
   );
+  pixelDensity(1);
 
   scale(-1, 1); // unset mirror
   pop();
