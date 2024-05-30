@@ -38,7 +38,6 @@ for (let i = 0; i < numPoses; i++) {
 function setup() {
   createCanvas(windowWidth, windowHeight);
   captureWebcam();
-  console.log(width, height);
 }
 
 function draw() {
@@ -56,7 +55,6 @@ function draw() {
     multiplier.width,
     multiplier.height
   );
-  pixelDensity(1);
 
   scale(-1, 1); // unset mirror
   pop();

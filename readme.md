@@ -3,6 +3,7 @@
 # final
 
 - [pose circles](pose-circles)
+- [pose circles small](pose-circles-small)
 - [pose grid](pose-grid)
 - [pose grid separate](pose-grid-separate)
 - [pose rectangles](pose-rectangles)
