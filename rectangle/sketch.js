@@ -86,7 +86,7 @@ function draw() {
 
       rectMode(CORNER);
       let fillCol = map(abs(rectWidth) + abs(rectHeight), 0, width * 2, 0, 360);
-      fill(0, 100, 100);
+      fill(fillCol, 100, 100);
       rect(getFlipPos(i1).x, getFlipPos(i1).y, rectWidth, rectHeight);
     });
   } else {
