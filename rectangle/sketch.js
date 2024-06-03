@@ -91,6 +91,7 @@ function draw() {
     });
   } else {
     rectMode(CENTER);
+    fill("white");
     rect(width / 2, height / 2, width / 2);
   }
 }
