@@ -39,13 +39,15 @@ function setup() {
   createCanvas(windowWidth, windowHeight);
   captureWebcam();
   colorMode(HSB);
-  colorMode(MULTIPLY);
+  blendMode(MULTIPLY);
+  // noStroke();
 }
 
 function draw() {
   clear();
   lerpPositions();
   strokeWeight(3);
+  // noStroke();
 
   // push();
   // scale(-1, 1); // mirror webcam
@@ -88,6 +90,8 @@ function draw() {
       let fillCol = map(abs(rectWidth) + abs(rectHeight), 0, width * 2, 0, 360);
       fill(fillCol, 100, 100);
       rect(getFlipPos(i1).x, getFlipPos(i1).y, rectWidth, rectHeight);
+      // fill("cyan");
+      // rect(width / 2, height / 2, width / 2);
     });
   } else {
     rectMode(CENTER);
