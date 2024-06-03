@@ -40,6 +40,7 @@ function setup() {
   captureWebcam();
   colorMode(HSB);
   pixelDensity(1);
+  // blendMode(DIFFERENCE);
 }
 
 function draw() {

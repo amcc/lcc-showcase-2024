@@ -38,29 +38,30 @@ for (let i = 0; i < numPoses; i++) {
 function setup() {
   createCanvas(windowWidth, windowHeight);
   captureWebcam();
+  colorMode(HSB);
+  colorMode(MULTIPLY);
 }
 
 function draw() {
   clear();
   lerpPositions();
-  fill(0);
   strokeWeight(3);
 
-  push();
-  scale(-1, 1); // mirror webcam
-  // image(capture, -capture.width, 0); // draw webcam
-  image(
-    capture,
-    -multiplier.shiftX - multiplier.width,
-    multiplier.shiftY,
-    multiplier.width,
-    multiplier.height
-  );
+  // push();
+  // scale(-1, 1); // mirror webcam
+  // // image(capture, -capture.width, 0); // draw webcam
+  // image(
+  //   capture,
+  //   -multiplier.shiftX - multiplier.width,
+  //   multiplier.shiftY,
+  //   multiplier.width,
+  //   multiplier.height
+  // );
 
-  scale(-1, 1); // unset mirror
-  pop();
+  // scale(-1, 1); // unset mirror
+  // pop();
 
-  background(255);
+  // background("white");
 
   // mediaPipe.landmarks contains an array of people
   if (mediaPipe.landmarks.length > 0) {
@@ -76,6 +77,7 @@ function draw() {
       //   let handY = hand[8].y * capture.height;
       //   circle(handX, handY, 20);
 
+      fill("black");
       circle(getFlipPos(i0).x, getFlipPos(i0).y, 20);
       circle(getFlipPos(i1).x, getFlipPos(i1).y, 20);
 
@@ -83,6 +85,8 @@ function draw() {
       let rectHeight = getFlipPos(i0).y - getFlipPos(i1).y;
 
       rectMode(CORNER);
+      let fillCol = map(abs(rectWidth) + abs(rectHeight), 0, width * 2, 0, 360);
+      fill(0, 100, 100);
       rect(getFlipPos(i1).x, getFlipPos(i1).y, rectWidth, rectHeight);
     });
   } else {

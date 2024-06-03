@@ -95,7 +95,10 @@ function draw() {
       line(getFlipPos(i1).x, 0, getFlipPos(i1).x, height);
     });
   } else {
-    circle(width / 2, height / 2, width / 2);
+    let lineSize = width / 4;
+    circle(width / 2, height / 2, 20);
+    line(width / 2, height / 2 - lineSize, width / 2, height / 2 + lineSize);
+    line(width / 2 - lineSize, height / 2, width / 2 + lineSize, height / 2);
   }
 }
 
